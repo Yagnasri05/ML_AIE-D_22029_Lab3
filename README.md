@@ -1,4 +1,5 @@
 A1. 
+
 Please refer to the “Purchase Data” worksheet of Lab Session1 Data.xlsx.
 Please load the data and segregate them into 2 matrices A & C (following the nomenclature of AX = C). 
 Do the following activities.
@@ -9,13 +10,16 @@ Do the following activities.
 •Using Pseudo-Inverse find the cost of each product available for sale. (Suggestion: If you use Python, you can use numpy.linalg.pinv()function to get a pseudo-inverse.)
 
 A2.
+
 Use the Pseudo-inverse to calculate the model vector X for predicting the cost of the products available with the vendor.
 
 A3. 
+
 Mark all customers(in “Purchase Data” table)with paymentsabove Rs. 200 as RICH and others as POOR. 
 Develop a classifier model to categorize customers into RICH or POOR class based on purchase behavior.
 
 A4.
+
 Please refer to the data present in “IRCTC Stock Price” data sheet of the above excel file. 
 Do the following after loading the data to your programming platform.
 

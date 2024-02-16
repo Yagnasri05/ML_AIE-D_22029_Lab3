@@ -29,27 +29,32 @@ def customer_data(df):
 
     return A, C, dimA, dimC, rA, pA, dimPA, x
 
+# A3 Mark all customers (in “Purchase Data” table) with payments above Rs. 200 as RICH and others as POOR. Develop a classifier model to categorize customers into RICH or POOR class based on purchase behavior.
 def classify_customers(df):
-    # A3 Mark all customers (in “Purchase Data” table) with payments above Rs. 200 as RICH and others as POOR. Develop a classifier model to categorize customers into RICH or POOR class based on purchase behavior.
     df['Rich/Poor'] = ['Rich' if x > 200 else 'Poor' for x in df['Payment (Rs)']]
     return df
 
+# A4
 def irctc_stock_data(df1):
-    # A4
+    #Calculate the mean and variance of the Price data present in column D. 
     mean = statistics.mean(df1['Price'])
     var = statistics.variance(df1['Price'])
 
-    wednesday = df1[df1['Day'] == 'Wednesday']['Price']
+    #Select the price data for all Wednesdays and calculate the sample mean.
+    #Calculate the probability of making a profit on Wednesday.
+    #Calculate the conditional probability of making profit, given that today is Wednesday.
+    wednesday = df1[df1['Day'] == 'Wed']['Price']
     wd = pd.to_numeric(wednesday)
     if len(wd)>0:
         wed_mean = statistics.mean(wd)
         wed_prob_profit = len(wednesday[wednesday > 0]) / len(wednesday)
-        wed_cond_prob = len(wednesday[wednesday > 0]) / len(df1[df1['Day'] == 'Wednesday'])
+        wed_cond_prob = len(wednesday[wednesday > 0]) / len(df1[df1['Day'] == 'Wed'])
     else:
         wed_mean=None
         wed_prob_profit = None
         wed_cond_prob = None
 
+    #Select the price data for the month of Apr and calculate the sample mean. 
     april = df1[df1['Month'] == 'Apr']['Price']
     ap = pd.to_numeric(april)
     if len(wd)>0:
@@ -57,8 +62,10 @@ def irctc_stock_data(df1):
     else:
         apr_mean=None
 
-    loss = len(df1[df1['Chg%'] < 0]) / len(df1)
+    #From the Chg% (available in column I) find the probability of making a loss over the stock.
+    loss = len(df1[df1['Chg%']<0])/len(df1)
 
+    #Make a scatter plot of Chg% data against the day of the week
     plt.scatter(df1['Day'], df1['Chg%'])
     plt.xlabel('Day of the Week')
     plt.ylabel('Chg%')
@@ -72,7 +79,6 @@ df = pd.read_excel(r"C:\Users\madda\Downloads\LabSession1Data.xlsx", sheet_name=
 A, C, dimA, dimC, rA, pA, dimPA, x = customer_data(df)
 classifier = classify_customers(df)
 
-# A4
 df1 = pd.read_excel(r"C:\Users\madda\Downloads\LabSession1Data.xlsx", sheet_name='IRCTC Stock Price')
 mean, var, wed_mean, apr_mean, loss, wed_prob_profit, wed_cond_prob = irctc_stock_data(df1)
 
